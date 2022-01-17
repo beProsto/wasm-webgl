@@ -1,6 +1,3 @@
-let img;
-let c2d;
-
 window.onload = async () => {
 	const modutils = new ModuleUtils();
 	const module = await WebAssembly.instantiateStreaming(
@@ -13,12 +10,10 @@ window.onload = async () => {
 	module.instance.exports.Main();
 
 	// canvas drawing setup
-	c2d = document.getElementById("vancas").getContext("2d");
-	const data = new Uint8ClampedArray(module.instance.exports.memory.buffer, module.instance.exports.getDisplayPtr(), 640 * 360 * 4);
-	img = new ImageData(data, 640, 360);
-	c2d.putImageData(img, 0, 0);
+	const gl = document.getElementById("vancas").getContext("webgl2");
+	// gl.clearColor(1.0, 1.0, 0.0, 1.0);
+	// gl.clear(gl.COLOR_BUFFER_BIT);
 
 	// pass a reference to the context
-	modutils.c2d = c2d;
-	modutils.img = img;
+	modutils.gl = gl;
 };

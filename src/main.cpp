@@ -1,25 +1,20 @@
+#define GLEW_STATIC
 #include "utils/include/utils.hpp"
+// #include "game.hpp"
 
-uint8_t display[640*360*4];
 
-extern "C" uint8_t* getDisplayPtr() {
-	return &display[0];
-}
+float time = 0.0f;
 
-void animationFrame() {
-
+void animFrame() {
+	time += 0.1f;
+	time = time - (float)(int)time;
+	glClearColor(time, time, time, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 extern "C" void Main() {
 	cout << "Hejka naklejka!\n";
 
-	for(size_t i = 0; i < 640*360*4; i+=4) {
-		display[i+0] = 255;
-		display[i+1] = 0;
-		display[i+2] = 255;
-		display[i+3] = 255;
-	}
-
-	__wasm_set_winreqanim_callback(animationFrame);
+	__wasm_set_winreqanim_callback(animFrame);
 	__wasm_import_winreqanim_call();
 }

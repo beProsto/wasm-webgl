@@ -6,4 +6,5 @@
 
 #include "cstring.hpp"
 #include "cmath.hpp"
+#include "gldef.hpp"
 #include "api.hpp"

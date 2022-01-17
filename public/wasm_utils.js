@@ -3,14 +3,13 @@ class ModuleUtils {
 		// this is our module
 		this.moduleref = {};
 		// reference to a context
-		this.c2d = {};
-		// reference to an image
-		this.img = 0;
+		this.gl = {};
 
 		// buffer for the text 
 		this.console_write_buffer = "";
-
+		// window's frame's identifier
 		this.frameId = 0;
+		// animation frame function
 		this.animFrame = () => {};
 	}
 
@@ -55,11 +54,16 @@ class ModuleUtils {
 				this.animFrame = () => {
 					this.moduleref.instance.exports.__wasm_export_winreqanim_callback_execute();
 
-					this.c2d.putImageData(this.img, 0, 0);
-
 					this.frameId = window.requestAnimationFrame(this.animFrame);
 				}
 				this.frameId = window.requestAnimationFrame(this.animFrame);
+			},
+			// webgl imports
+			glClearColor: (r,g,b,a) => {
+				this.gl.clearColor(r,g,b,a);
+			},
+			glClear: (m) => {
+				this.gl.clear(m);
 			}
 		} };
 	}
