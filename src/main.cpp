@@ -15,7 +15,6 @@ WASM_EXPORT void Main() {
 	cout << "Hejka naklejka!\n";
 
 	string astring("Would you like to sign my petition?");
-
 	cout << astring << endl;
 
 	memcpy(&astring[0], &astring[18], astring.size() - 17);
@@ -25,9 +24,9 @@ WASM_EXPORT void Main() {
 
 	cout << astring << endl;
 
-	// for(uint8_t i = 0; i < 255; i++) {
-	// 	cout << i << ": " << (char)i << endl;
-	// }
+	memset(&astring[0], 0, 5);
+
+	cout << astring << endl;
 
 	__wasm_set_winreqanim_callback(animFrame);
 	__wasm_import_winreqanim_call();

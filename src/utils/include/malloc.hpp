@@ -37,7 +37,7 @@ inline void *memcpy(void *dst, const void *src, size_t len) {
 
 	return dst;
 }
-inline void *amemset(void *dst, uint8_t data, size_t len) {
+inline void *memset(void *dst, uint8_t data, size_t len) {
 	uint8_t* ptr = (uint8_t*)dst;
 
 	for(; ptr < ((uint8_t*)dst)+len; ptr++) {

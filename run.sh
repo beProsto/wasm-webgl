@@ -1,5 +1,5 @@
 echo "Compiling C++ with LLVM Clang:"
-clang++ --target=wasm32 -std=c++17 -nostdlib -fno-exceptions -Wl,--no-entry -Wl,--export-all -Wl,--allow-undefined -O2 -o public/main.wasm src/main.cpp src/utils/src/malloc.cpp src/utils/src/winreqanim.cpp
+clang++ --target=wasm32 -std=c++17 -nostdlib -fno-exceptions -ffreestanding -Wl,--no-entry -Wl,--export-all -Wl,--allow-undefined -O2 -o public/main.wasm src/main.cpp src/utils/src/malloc.cpp src/utils/src/winreqanim.cpp
 echo "Finished!"
 echo "---"
 
