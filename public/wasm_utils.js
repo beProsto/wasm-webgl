@@ -15,7 +15,7 @@ class ModuleUtils {
 
 	// functions to import to our wasm code
 	getImports() {
-		return { env: {
+		let imports = { env: {
 			// logs a string
 			__wasm_import_console_log_str: (_ptr) => {
 				const memory_buffer = new Uint8Array(this.moduleref.instance.exports.memory.buffer);
@@ -58,6 +58,17 @@ class ModuleUtils {
 				}
 				this.frameId = window.requestAnimationFrame(this.animFrame);
 			},
+			// evaluates a string as js
+			__wasm_import_eval: (_ptr) => {
+				const memory_buffer = new Uint8Array(this.moduleref.instance.exports.memory.buffer);
+				let text_buffer = "";
+				
+				for(; memory_buffer[_ptr] != 0; _ptr++) {
+					text_buffer += String.fromCharCode(memory_buffer[_ptr]);
+				}
+
+				eval(text_buffer);
+			},
 			// webgl imports
 			glClearColor: (r,g,b,a) => {
 				this.gl.clearColor(r,g,b,a);
@@ -66,5 +77,6 @@ class ModuleUtils {
 				this.gl.clear(m);
 			}
 		} };
+		return imports;
 	}
 }

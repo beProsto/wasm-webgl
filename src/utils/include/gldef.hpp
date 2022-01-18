@@ -7,7 +7,6 @@ extern "C" {
 void glClearColor(float, float, float, float);
 void glClear(uint32_t);
 
-
 #define GL_ZERO 0
 #define GL_FALSE 0
 #define GL_LOGIC_OP 0x0BF1

@@ -8,4 +8,6 @@ extern "C" {
 	void __wasm_import_console_write_num(double);
 	// calls window.requestAnimationFrame, passing the __wasm_export_winreqanim_exec function as the one to play on the frame
 	void __wasm_import_winreqanim_call();
+	// calls eval to evaluate js code represented as a string
+	void __wasm_import_eval(const char*);
 }
