@@ -4,7 +4,11 @@
 #include "malloc.hpp"
 #include <stdint.h>
 
+// To communicate between wasm and js we need function names to not be mangled
+// So yeah both import and export essentially does the same thing
+
 #define WASM_EXPORT extern "C"
+#define WASM_IMPORT extern "C"
 
 // As this is a c++ file, and we're not exporting or importing any of these functions to or from js
 // - we can do inlines and define multiple functions with the same name. :D
@@ -41,7 +45,7 @@ public:
 		m_Size = _size;
 		m_Str = (char*)malloc(m_Size + 1);
 		m_Str[m_Size] = '\0';
-		m_Str = (char*)amemset((void*)m_Str, (uint8_t)_toFillWith, m_Size);
+		m_Str = (char*)memset((void*)m_Str, (uint8_t)_toFillWith, m_Size);
 	}
 	~string() {
 		if(m_Str != nullptr) {
