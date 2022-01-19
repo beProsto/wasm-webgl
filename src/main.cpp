@@ -1,13 +1,14 @@
 #include "utils/include/utils.hpp"
+#include "openlibm/include/openlibm.h"
 // #include "game.hpp"
 
 float time = 0.0f;
 
 void animFrame() {
 	time += 0.01f;
-	// if the number reaches or exceeds 1.0, it will be shortened to only it's post decimal point numbers
-	time = time - (float)(int)time;
-	glClearColor(time, time, time, 1.0f);
+	float sinusoid = (sin(time) + 1.0) / 2.0;
+
+	glClearColor(sinusoid, sinusoid, sinusoid, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
