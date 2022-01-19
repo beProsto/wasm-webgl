@@ -1,42 +1,44 @@
 #pragma once
 
+#define WEBGL
+
 #include <stdint.h>
 
 extern "C" {
 
-void glClearColor(float, float, float, float);
-void glClear(uint32_t);
-glViewport
+void glClearColor(float red, float green, float blue, float alpha);
+void glClear(uint32_t bit);
+void glViewport(int x, int y, uint32_t width, uint32_t height);
 
-glCreateShader
-glShaderSource
-glCompileShader
-glGetShaderiv
-glGetShaderInfoLog
-glDeleteShader
+uint32_t glCreateShader(uint32_t kind);
+void glShaderSource(uint32_t id, const char* string);
+void glCompileShader(uint32_t id);
+// void glGetShaderiv();
+// void glGetShaderInfoLog();
+void glDeleteShader(uint32_t id);
 
-glCreateProgram
-glAttachShader
-glLinkProgram
-glValidateProgram
-glUseProgram
-glDeleteProgram
+uint32_t glCreateProgram();
+void glAttachShader(uint32_t id, uint32_t shader);
+void glLinkProgram(uint32_t id);
+void glValidateProgram(uint32_t id);
+void glUseProgram(uint32_t id);
+void glDeleteProgram(uint32_t id);
 
-glGenVertexArrays
-glBindVertexArray
-glVertexAttribPointer
-glEnableVertexAttribArray
-glDeleteVertexArrays
+uint32_t glCreateVertexArray();
+void glBindVertexArray(uint32_t id);
+void glVertexAttribPointer(uint32_t index, uint32_t size, uint32_t type, bool normalized, uint32_t stride, uint32_t offset);
+void glEnableVertexAttribArray(uint32_t index);
+void glDeleteVertexArray(uint32_t id);
 
-glGenBuffers
-glBindBuffer
-glBufferData
-glDeleteBuffers
+uint32_t glCreateBuffer();
+void glBindBuffer(uint32_t kind, uint32_t id);
+void glBufferData(uint32_t kind, uint32_t id, void* data, uint32_t size, uint32_t usage);
+void glDeleteBuffer(uint32_t id);
 
-glUniform2f
-glGetUniformLocation
+// void glUniform2f();
+// void glGetUniformLocation();
 
-glDrawArrays
+void glDrawArrays(uint32_t mode, uint32_t first, uint32_t count);
 
 #define GL_ZERO 0
 #define GL_FALSE 0

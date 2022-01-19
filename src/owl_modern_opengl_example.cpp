@@ -44,21 +44,21 @@ vShaderID = glCreateShader(GL_VERTEX_SHADER);
 glShaderSource(vShaderID, 1, &vsc, NULL);
 glCompileShader(vShaderID);
 
-glGetShaderiv(vShaderID, GL_COMPILE_STATUS, &success);
-if(!success) {
-	glGetShaderInfoLog(vShaderID, 512, NULL, infoLog);
-	std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
-}
+// glGetShaderiv(vShaderID, GL_COMPILE_STATUS, &success);
+// if(!success) {
+// 	glGetShaderInfoLog(vShaderID, 512, NULL, infoLog);
+// 	std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
+// }
 
 fShaderID = glCreateShader(GL_FRAGMENT_SHADER);
 glShaderSource(fShaderID, 1, &fsc, NULL);
 glCompileShader(fShaderID);
 
-glGetShaderiv(fShaderID, GL_COMPILE_STATUS, &success);
-if(!success) {
-	glGetShaderInfoLog(fShaderID, 512, NULL, infoLog);
-	std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
-}
+// glGetShaderiv(fShaderID, GL_COMPILE_STATUS, &success);
+// if(!success) {
+// 	glGetShaderInfoLog(fShaderID, 512, NULL, infoLog);
+// 	std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
+// }
 
 shaderID = glCreateProgram();
 glAttachShader(shaderID, vShaderID);
