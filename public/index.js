@@ -6,9 +6,6 @@ window.onload = async () => {
 	// pass the reference of the module to the utils importer
 	modutils.moduleref = module;
 
-	// start executing the main function
-	module.instance.exports.Main();
-
 	// canvas drawing setup
 	const gl = document.getElementById("vancas").getContext("webgl2");
 	// gl.clearColor(1.0, 1.0, 0.0, 1.0);
@@ -16,4 +13,7 @@ window.onload = async () => {
 
 	// pass a reference to the context
 	modutils.gl = gl;
+
+	// start executing the main function
+	module.instance.exports.Main();
 };
