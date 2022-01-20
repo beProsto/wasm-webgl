@@ -161,8 +161,8 @@ class ModuleUtils {
 				this.gl.bindBuffer(kind,this.glObjects[id]);
 			},
 			glBufferData : (kind,size,data,usage) => {
-				const dataArray = new Uint8ClampedArray(this.moduleref.instance.exports.memory, data, size);
-				this.gl.bufferData(kind, dataArray, usage);
+				const dataArray = new Uint8Array(this.moduleref.instance.exports.memory.buffer);
+				this.gl.bufferData(kind, dataArray, usage, data, size);
 			},
 			glDeleteBuffer : (id) => {
 				this.gl.deleteBuffer(this.glObjects[id]);

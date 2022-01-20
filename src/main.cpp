@@ -4,7 +4,7 @@
 
 float time = 0.0f;
 
-float vertices[] = {
+const float vertices[] = {
 	-0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f,
 	0.0f, 0.5f, 0.0f, 0.0f, 1.0f, 0.0f,
 	0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f
@@ -43,7 +43,11 @@ void animFrame() {
 	float sinusoid = (sin(time) + 1.0) / 2.0;
 
 	glClearColor(sinusoid, sinusoid, sinusoid, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT);
+
+	// glUseProgram(shaderID);
+	// glBindVertexArray(vaID);
+	// glBindBuffer(GL_ARRAY_BUFFER, vbID);
 
 	glDrawArrays(GL_TRIANGLES, 0, 3);
 }
@@ -96,14 +100,14 @@ WASM_EXPORT void Main() {
 	// create an array buffer (the actual vertex buffer)
 	vbID = glCreateBuffer();
 	glBindBuffer(GL_ARRAY_BUFFER, vbID);
-	// pass data to the buffer
-	glBufferData(GL_ARRAY_BUFFER, 18 * sizeof(float), vertices, GL_STATIC_DRAW);
 
+	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), 0);
-	glEnableVertexAttribArray(0);  
+	glEnableVertexAttribArray(1);
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), 3 * sizeof(float));
-	glEnableVertexAttribArray(1);  
 
+	// pass data to the buffer
+	glBufferData(GL_ARRAY_BUFFER, 18 * sizeof(float), (void*)&vertices[0], GL_STATIC_DRAW);
 
 	__wasm_set_winreqanim_callback(animFrame);
 	__wasm_import_winreqanim_call();
