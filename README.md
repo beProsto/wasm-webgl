@@ -9,3 +9,7 @@ To run the project on windows, use the `run.cmd` file.
 To run it on linux, use `run.sh`.
 
 You can check out the results [here](https://beprosto.github.io/wasm-webgl/public/)! :D
+
+Here's how a triangle made using this looks like:
+
+![](./triangle.png)
