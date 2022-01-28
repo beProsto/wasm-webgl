@@ -9,4 +9,5 @@
 #include "cstring.hpp"
 #include "math/math.hpp"
 #include "gldef.hpp"
+#include "fetch.hpp"
 #include "api.hpp"
