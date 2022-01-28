@@ -2,6 +2,8 @@
 
 #include "imports.hpp"
 #include "malloc.hpp"
+#include "cstring.hpp"
+#include "utils.hpp"
 #include <stdint.h>
 
 // To communicate between wasm and js we need function names to not be mangled
@@ -98,3 +100,9 @@ public:
 static console_writer cout;
 
 constexpr const char endl = '\n';
+
+// ON ANIMATION FRAME
+inline void window_animation_callback(void(*_callback)()) {
+	__wasm_set_winreqanim_callback(_callback);
+	__wasm_import_winreqanim_call();
+}
