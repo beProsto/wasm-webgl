@@ -53,8 +53,9 @@ class ModuleUtils {
 			},
 			// starts a window.requireAnimationFrame loop called on a specific funtion exported by the module
 			__wasm_import_winreqanim_call: () => {
-				this.animFrame = () => {
-					this.moduleref.instance.exports.__wasm_export_winreqanim_callback_execute();
+				this.animFrame = (time) => {
+
+					this.moduleref.instance.exports.__wasm_export_winreqanim_callback_execute(time);
 
 					this.frameId = window.requestAnimationFrame(this.animFrame);
 				}

@@ -20,8 +20,7 @@ class Game {
 public:
 	Game():
 	m_Shader(g_VertexShaderSource, g_FragmentShaderSource),
-	m_VertexBuffer(vertices),
-	m_ColorInterval(0)
+	m_VertexBuffer(vertices)
 	{}
 	~Game() {}
 
@@ -30,9 +29,8 @@ public:
 		m_VertexBuffer.bind();
 	}
 
-	void update() {
-		m_ColorInterval += 0.01f;
-		float sinusoid = (sin(m_ColorInterval) + 1.0) / 2.0;
+	void update(float time) {
+		float sinusoid = (sin(time / 500.0f) + 1.0) / 2.0;
 
 		glClearColor(sinusoid, sinusoid, sinusoid, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
@@ -43,5 +41,4 @@ public:
 private:
 	Shader m_Shader;
 	VertexBuffer m_VertexBuffer;
-	float m_ColorInterval;
 };

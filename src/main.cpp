@@ -31,7 +31,7 @@ WASM_EXPORT void loading_callback() {
 // From game.hpp, contains objects and functions regarding the application
 Game* game;
 // To be called every frame
-void anim_frame() { game->update(); }
+void anim_frame(float time) { game->update(time); }
 // When everything is loaded and ready
 void start_app() {
 	// We "create" the game - initialise it
