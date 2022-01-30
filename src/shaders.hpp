@@ -8,8 +8,6 @@ class Shader {
 public:
 	Shader() {
 		m_ID = glCreateProgram();
-		bind();
-
 	}
 	Shader(const char* _vertexShader, const char* _fragmentShader) {
 		m_ID = glCreateProgram();

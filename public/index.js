@@ -15,5 +15,5 @@ window.onload = async () => {
 	modutils.gl = gl;
 
 	// start executing the main function
-	module.instance.exports.Main();
+	await module.instance.exports.begin();
 };

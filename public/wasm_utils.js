@@ -71,6 +71,29 @@ class ModuleUtils {
 
 				eval(text_buffer);
 			},
+			// fetch'es a string asynchronously
+			fetch_string: (_str, _ptrToStrPtr) => {
+				// converts the string of the requested url into js text
+				const url = this.strToTxt(_str);
+				// fetches the file asynchronously
+				this.fetchText(url).then((str) => {
+					// allocates space for the new string inside the module's memory
+					const ptr = this.moduleref.instance.exports.__wasm_export_malloc(str.length + 1);
+					// encodes the string - converts it into a byte array
+					const strBuf = new TextEncoder().encode(str);
+					// places the encoded string in the allocated memory
+					const outBuf = new Uint8Array(this.moduleref.instance.exports.memory.buffer, ptr, strBuf.length);
+					for(let i = 0; i < strBuf.length; i++) {
+						outBuf[i] = strBuf[i];
+					}
+
+					// places the pointer to the string in the requested pointer 
+					new Uint32Array(this.moduleref.instance.exports.memory.buffer, _ptrToStrPtr, _ptrToStrPtr+4)[0] = ptr;
+
+					// calls the general file loading callback
+					this.moduleref.instance.exports.loading_callback();
+				});
+			},
 			// webgl imports
 			// I wonder if there's some way to optimise this.
 			// One way i can imagine would be to create some
@@ -104,10 +127,9 @@ class ModuleUtils {
 			glCompileShader: (id) => {
 				this.gl.compileShader(this.glObjects[id]);
 
-				const compiled = this.gl.getShaderParameter(this.glObjects[id], this.gl.COMPILE_STATUS);
-				console.log('Shader compiled successfully: ' + compiled);
-				const compilationLog = this.gl.getShaderInfoLog(this.glObjects[id]);
-				console.log('Shader compiler log: ' + compilationLog);
+				// Debug purposes:
+				console.log('Shader compiled successfully: ' + this.gl.getShaderParameter(this.glObjects[id], this.gl.COMPILE_STATUS));
+				console.log('Shader compiler log: ' + this.gl.getShaderInfoLog(this.glObjects[id]));
 			},
 			glDeleteShader: (id) => {
 				this.gl.deleteShader(this.glObjects[id]);
@@ -123,6 +145,10 @@ class ModuleUtils {
 			},
 			glLinkProgram: (id) => {
 				this.gl.linkProgram(this.glObjects[id]);
+
+				// Debug purposes:
+				console.log("Program link status: " + this.gl.getProgramParameter(this.glObjects[id], this.gl.LINK_STATUS));
+				console.log("Program Linker log: " + this.gl.getProgramInfoLog(this.glObjects[id]));
 			},
 			glValidateProgram: (id) => {
 				this.gl.validateProgram(this.glObjects[id]);
@@ -180,5 +206,11 @@ class ModuleUtils {
 			text_buffer += String.fromCharCode(memory_buffer[str]);
 		}
 		return text_buffer;
+	}
+
+	async fetchText(url) {
+		let response = await fetch(url);
+		let responseText = await response.text();
+		return responseText;
 	}
 }
