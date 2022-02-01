@@ -6,10 +6,10 @@
 #include "vertexbuffers.hpp"
 
 const Vertex vertices[] = {
-	// Position               // Color
-	Vec3{-0.5f, -0.5f, 0.0f}, Vec3{1.0f, 0.0f, 0.0f},
-	Vec3{ 0.0f,  0.5f, 0.0f}, Vec3{0.0f, 1.0f, 0.0f},
-	Vec3{ 0.5f, -0.5f, 0.0f}, Vec3{0.0f, 0.0f, 1.0f}
+	// Position                 // Tex Coords     // Normals
+	{ Vec3{-0.5f, -0.5f, 0.0f}, Vec2{0.0f, 0.0f}, Vec3{0.0f, 0.0f, 1.0f} },
+	{ Vec3{ 0.0f,  0.5f, 0.0f}, Vec2{0.5f, 1.0f}, Vec3{0.0f, 0.0f, 1.0f} },
+	{ Vec3{ 0.5f, -0.5f, 0.0f}, Vec2{1.0f, 0.0f}, Vec3{0.0f, 0.0f, 1.0f} }
 };
 
 char* g_VertexShaderSource;
@@ -19,7 +19,7 @@ class Game {
 public:
 	Game():
 	m_Shader(g_VertexShaderSource, g_FragmentShaderSource),
-	m_VertexBuffer(vertices)
+	m_VertexBuffer(vertices, sizeof(vertices))
 	{}
 	~Game() {}
 

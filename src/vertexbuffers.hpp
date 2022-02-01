@@ -17,21 +17,21 @@ public:
 		// we bind it all (initialise the vertex buffer)
 		bind();
 	}
-	VertexBuffer(const Vertex* _mesh) {
+	VertexBuffer(const Vertex* _mesh, size_t _size) {
 		// create a vertex array (vertex descriptor)
 		m_VAID = glCreateVertexArray();
 		// create an array buffer (the actual vertex buffer)
 		m_VBID = glCreateBuffer();
 
 		// feed the mesh to the gpu
-		data(_mesh);
+		data(_mesh, _size);
 	}
 	~VertexBuffer() {
 		glDeleteVertexArray(m_VAID);
 		glDeleteBuffer(m_VBID);
 	}
 
-	void data(const Vertex* _mesh) const {
+	void data(const Vertex* _mesh, size_t _size) const {
 		// make sure it's all bound
 		bind();
 
@@ -47,7 +47,7 @@ public:
 		glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), 5 * sizeof(float));
 
 		// pass data to the buffer
-		glBufferData(GL_ARRAY_BUFFER, 18 * sizeof(float), (void*)_mesh, GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, _size, (void*)_mesh, GL_STATIC_DRAW);
 	}
 
 	void bind() const {
@@ -64,11 +64,16 @@ private:
 };
 
 
+struct Vec2 {
+	float x, y;
+};
+
 struct Vec3 {
 	float x, y, z;
 };
 
 struct Vertex {
 	Vec3 pos;
-	Vec3 col;
+	Vec2 tex;
+	Vec3 nor;
 };
