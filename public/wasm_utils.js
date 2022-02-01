@@ -20,13 +20,7 @@ class ModuleUtils {
 		let imports = { env: {
 			// logs a string
 			__wasm_import_console_log_str: (_ptr) => {
-				const memory_buffer = new Uint8Array(this.moduleref.instance.exports.memory.buffer);
-				let text_buffer = "";
-				
-				for(; memory_buffer[_ptr] != 0; _ptr++) {
-					text_buffer += String.fromCharCode(memory_buffer[_ptr]);
-				}
-
+				const text_buffer = this.strToTxt(_ptr);
 				console.log(text_buffer);
 			},
 			// logs a number
@@ -63,13 +57,7 @@ class ModuleUtils {
 			},
 			// evaluates a string as js
 			__wasm_import_eval: (_ptr) => {
-				const memory_buffer = new Uint8Array(this.moduleref.instance.exports.memory.buffer);
-				let text_buffer = "";
-				
-				for(; memory_buffer[_ptr] != 0; _ptr++) {
-					text_buffer += String.fromCharCode(memory_buffer[_ptr]);
-				}
-
+				let text_buffer = this.strToTxt(_ptr);
 				eval(text_buffer);
 			},
 			// fetch'es a string asynchronously
