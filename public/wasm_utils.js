@@ -2,6 +2,8 @@ class ModuleUtils {
 	constructor() {
 		// this is our module
 		this.moduleref = {};
+		// reference to a canvas
+		this.canv = {};
 		// reference to a context
 		this.gl = {};
 
@@ -150,36 +152,36 @@ class ModuleUtils {
 				delete this.glObjects[id];
 				// this.glObjects.splice(id, 1);
 			},
-			glCreateVertexArray : () => {
+			glCreateVertexArray: () => {
 				this.glObjects.push(this.gl.createVertexArray());
 				return this.glObjects.length-1;
 			},
-			glBindVertexArray : (id) => {
+			glBindVertexArray: (id) => {
 				this.gl.bindVertexArray(this.glObjects[id]);
 			},
-			glVertexAttribPointer : (index, size, type, normalized, stride, offset) => {
+			glVertexAttribPointer: (index, size, type, normalized, stride, offset) => {
 				this.gl.vertexAttribPointer(index, size, type, normalized, stride, offset);
 			},
-			glEnableVertexAttribArray : (index) => {
+			glEnableVertexAttribArray: (index) => {
 				this.gl.enableVertexAttribArray(index);
 			},
-			glDeleteVertexArray : (id) => {
+			glDeleteVertexArray: (id) => {
 				this.gl.deleteVertexArray(this.glObjects[id]);
 				delete this.glObjects[id];
 				// this.glObjects.splice(id, 1);
 			},
-			glCreateBuffer : () => {
+			glCreateBuffer: () => {
 				this.glObjects.push(this.gl.createBuffer());
 				return this.glObjects.length-1;
 			},
-			glBindBuffer : (kind,id) => {
+			glBindBuffer: (kind,id) => {
 				this.gl.bindBuffer(kind,this.glObjects[id]);
 			},
-			glBufferData : (kind,size,data,usage) => {
+			glBufferData: (kind,size,data,usage) => {
 				const dataArray = new Uint8Array(this.moduleref.instance.exports.memory.buffer);
 				this.gl.bufferData(kind, dataArray, usage, data, size);
 			},
-			glDeleteBuffer : (id) => {
+			glDeleteBuffer: (id) => {
 				this.gl.deleteBuffer(this.glObjects[id]);
 				delete this.glObjects[id];
 				// this.glObjects.splice(id, 1);
