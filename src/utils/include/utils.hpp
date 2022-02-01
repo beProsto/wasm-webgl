@@ -7,6 +7,7 @@
 #include "malloc.hpp"
 
 #include "cstring.hpp"
+#include "../../openlibm/include/openlibm.h"
 #include "math/math.hpp"
 #include "gldef.hpp"
 #include "fetch.hpp"

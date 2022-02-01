@@ -1,7 +1,6 @@
 #pragma once
 
 #include "utils/include/utils.hpp"
-#include "openlibm/include/openlibm.h"
 
 #include "shaders.hpp"
 #include "vertexbuffers.hpp"

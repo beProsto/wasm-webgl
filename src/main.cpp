@@ -1,5 +1,5 @@
 #include "utils/include/utils.hpp"
-#include "openlibm/include/openlibm.h"
+
 #include "game.hpp"
 
 uint32_t loaded = 0;
