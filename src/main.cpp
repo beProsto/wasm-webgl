@@ -3,7 +3,7 @@
 #include "game.hpp"
 
 uint32_t loaded = 0;
-const uint32_t to_load = 2; 
+uint32_t to_load = 0; 
 
 WASM_EXPORT void loading_callback();
 void start_app();
@@ -16,8 +16,8 @@ WASM_EXPORT void begin() {
 	g_BoundVertexBuffer = UINT32_MAX;
 
 	// load all the needed files as text (strings)
-	fetch_string("./shader.vert", &g_VertexShaderSource);
-	fetch_string("./shader.frag", &g_FragmentShaderSource);
+	fetch_string("./shader.vert", &g_VertexShaderSource); to_load++;
+	fetch_string("./shader.frag", &g_FragmentShaderSource); to_load++;
 }
 
 // called every time an asset is loaded

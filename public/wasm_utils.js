@@ -63,7 +63,7 @@ class ModuleUtils {
 				eval(text_buffer);
 			},
 			// fetch'es a string asynchronously
-			fetch_string: (_str, _ptrToStrPtr) => {
+			fetch_string: (_str, _ptrToStrPtr, _ptrToSize) => {
 				// converts the string of the requested url into js text
 				const url = this.strToTxt(_str);
 				// fetches the file asynchronously
@@ -80,6 +80,10 @@ class ModuleUtils {
 
 					// places the pointer to the string in the requested pointer 
 					new Uint32Array(this.moduleref.instance.exports.memory.buffer, _ptrToStrPtr, _ptrToStrPtr+4)[0] = ptr;
+					// places the size of the string in the requested integer 
+					if(_ptrToSize != 0) {
+						new Uint32Array(this.moduleref.instance.exports.memory.buffer, _ptrToSize, _ptrToSize+4)[0] = str.length + 1;
+					}
 
 					// calls the general file loading callback
 					this.moduleref.instance.exports.loading_callback();

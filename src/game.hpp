@@ -14,6 +14,7 @@ const Vertex vertices[] = {
 
 char* g_VertexShaderSource;
 char* g_FragmentShaderSource;
+unsigned char* g_TextureImageData;
 
 class Game {
 public:
