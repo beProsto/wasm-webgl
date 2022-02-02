@@ -1,0 +1,25 @@
+{
+	"short_name": "WASM WebGL",
+	"name": "beProsto's WebAssembly + WebGL",
+	"icons": [
+		{
+			"src":"./logo/logo192.png",
+			"sizes": "192x192",
+			"type": "image/png"
+		},
+		{
+			"src":"./logo/logo512.png",
+			"sizes": "512x512",
+			"type": "image/png"
+		},
+		{
+			"src":"./logo/logo768.png",
+			"sizes": "768x768",
+			"type": "image/png"
+		}
+	],
+	"start_url": "/",
+	"background_color": "#2e2e2e",
+	"theme_color": "#ffffff",
+	"display": "fullscreen"
+}

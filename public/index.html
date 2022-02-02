@@ -4,6 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="manifest" href="./manifest.json">
 	
 	<title>WebAssembly + WebGL</title>
 
@@ -24,6 +25,44 @@
 	<script src="./audio.js"></script>
 	<script src="./wasm_utils.js"></script>
 	<script src="./index.js"></script>
+
+	<!-- Service Worker - needed for PWA support -->
+	<script>
+		if("serviceWorker" in navigator) {
+			window.addEventListener("load", () => {
+				navigator.serviceWorker.register("service-worker.js")
+				.then((registration) => {
+					// Registration was successful
+					console.log("Registered!");
+
+				}, (err) => {
+					// registration failed :(
+					console.log("ServiceWorker registration failed: ", err);
+					
+				}).catch((err) => {
+					console.log(err);
+				});
+			});
+		}
+		else {
+			console.log("service worker is not supported");
+		}
+		const deferredPrompt = null;
+
+		window.addEventListener('beforeinstallprompt', e => {
+			console.log('beforeinstallprompt Event fired');
+			e.preventDefault();
+			// Stash the event so it can be triggered later.
+			deferredPrompt = e;
+			return false;
+		});
+		// When you want to trigger prompt:
+		deferredPrompt.prompt();
+		deferredPrompt.userChoice.then(choice => {
+			console.log(choice);
+		});
+		deferredPrompt = null;
+	</script>
 </head>
 <body>
 
