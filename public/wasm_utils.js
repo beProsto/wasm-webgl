@@ -51,6 +51,10 @@ class ModuleUtils {
 			__wasm_import_winreqanim_call: () => {
 				this.animFrame = (time) => {
 
+					music.play();
+					// this.canv.requestFullscreen();
+					// this.canv.requestPointerLock();
+
 					this.moduleref.instance.exports.__wasm_export_winreqanim_callback_execute(time);
 
 					this.frameId = window.requestAnimationFrame(this.animFrame);
