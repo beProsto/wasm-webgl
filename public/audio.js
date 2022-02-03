@@ -17,6 +17,7 @@ resonanceAudioScene.setRoomProperties({}, {});
 // Check if any audio can even be played
 let isAudioPlayable = false;
 window.onkeydown = window.onmousedown = window.ontouchstart = () => {
+	audioContext.resume();
 	isAudioPlayable = true;
 };
 
