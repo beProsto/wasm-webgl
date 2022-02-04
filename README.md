@@ -13,3 +13,5 @@ You can check out the results [here](https://beprosto.github.io/wasm-webgl/publi
 Here's how a triangle made using this looks like:
 
 ![](./triangle.png)
+
+Music ([music.mp3](./public/assets/audio/music.mp3)) from: https://freesound.org/people/Timbre/sounds/617036/
