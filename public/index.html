@@ -22,15 +22,15 @@
 	</style>
 
 	<script src="https://cdn.jsdelivr.net/npm/resonance-audio/build/resonance-audio.min.js"></script>
-	<script src="./audio.js"></script>
-	<script src="./wasm_utils.js"></script>
-	<script src="./index.js"></script>
+	<script src="./js/audio.js"></script>
+	<script src="./js/wasm_utils.js"></script>
+	<script src="./js/index.js"></script>
 
 	<!-- Service Worker - needed for PWA support -->
 	<script>
 		if("serviceWorker" in navigator) {
 			window.addEventListener("load", () => {
-				navigator.serviceWorker.register("service-worker.js")
+				navigator.serviceWorker.register("./js/service-worker.js")
 				.then((registration) => {
 					// Registration was successful
 					console.log("Registered!");

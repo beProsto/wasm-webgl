@@ -1,3 +1,5 @@
+// This worker actually does not do anything
+// it's just here for PWA compatibility
 self.addEventListener('install', () => {
 	console.log('Install!');
 });

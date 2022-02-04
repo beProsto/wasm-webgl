@@ -18,7 +18,7 @@ window.onload = async () => {
 	// loading the module
 	const modutils = new ModuleUtils();
 	const module = await WebAssembly.instantiateStreaming(
-		fetch("./main.wasm"), modutils.getImports()
+		fetch("./wasm/main.wasm"), modutils.getImports()
 	);
 	// pass the reference of the module to the utils importer
 	modutils.moduleref = module;
@@ -30,5 +30,3 @@ window.onload = async () => {
 	// start executing the main function
 	module.instance.exports.begin();
 };
-
-// Music (music.mp3) from: https://freesound.org/people/Timbre/sounds/617036/
