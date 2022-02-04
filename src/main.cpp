@@ -16,8 +16,8 @@ WASM_EXPORT void begin() {
 	g_BoundVertexBuffer = UINT32_MAX;
 
 	// load all the needed files as text (strings)
-	fetch_string("./shader.vert", &g_VertexShaderSource); to_load++;
-	fetch_string("./shader.frag", &g_FragmentShaderSource); to_load++;
+	fetch_string("./assets/shaders/shader.vert", &g_VertexShaderSource); to_load++;
+	fetch_string("./assets/shaders/shader.frag", &g_FragmentShaderSource); to_load++;
 }
 
 // called every time an asset is loaded

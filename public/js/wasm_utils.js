@@ -1,5 +1,5 @@
 // Make the audio
-let music = new PlayableAudio("./music.mp3", [0.0, 0.0, 0.0], true);
+let music = new PlayableAudio("./assets/audio/music.mp3", [0.0, 0.0, 0.0], true);
 
 class ModuleUtils {
 	constructor() {
