@@ -1,4 +1,12 @@
-let mouse = {position: [0.0, 0.0], velocity: [0.0, 0.0], pressedButtons: [false, false, false, false, false], wheel: 0.0, _touchintlpos: [0.0, 0.0]};
+// Everything besides _touchintlpos is the mouse's interface
+let mouse = {
+	position: [0.0, 0.0],
+	velocity: [0.0, 0.0],
+	pressedButtons: [false, false, false, false, false],
+	wheel: 0.0,
+	_touchintlpos: [0.0, 0.0]
+};
+
 window.onmousemove = (e) => { 
 	mouse.position[0] = e.clientX; 
 	mouse.position[1] = e.clientY; 
@@ -38,4 +46,5 @@ window.ontouchcancel = (e) => {
 	mouse.velocity[1] = 0.0;
 };
 
+// prevents the context menu from appearing
 window.oncontextmenu = (e) => { return false; };
