@@ -36,6 +36,8 @@ public:
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		glDrawArrays(GL_TRIANGLES, 0, 3);
+
+		cout << "The W key is currently " << (is_key_pressed(87) ? "" : "not ") << "pressed!" << endl;
 	}
 
 private:

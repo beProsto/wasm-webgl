@@ -20,7 +20,7 @@ let isAudioPlayable = false;
 // Adds a tempporary measure to ensure that any audio can be played
 // it can only be played if the user first had any interaction with the website
 function enableAudio() {
-	console.warn("\n!!! AUDIO HAS ENABLED !!!");
+	console.warn("!!! AUDIO HAS ENABLED !!!");
 	
 	audioContext.resume();
 	isAudioPlayable = true;
@@ -107,20 +107,14 @@ class PlayableAudio {
 
 			// We call the user-defined callback in case of a sound ending - these seem to be pretty handy, actually! :D
 			this.onFinished();
-
-			console.log(`Audio ${this.id} was in fact stopped!`);
 		};
 	}
 
 	// Play the audio (with the option of starting at a given time)
 	play(_from = 0) {
-		console.log(`Audio ${this.id} attempted to be played!`);
-		
 		// We should only be able to start playing the audio if it isn't playing already, and if it is playable (the cleanup process has finished)
 		if(this.isPlayable && !this.isPlaying && isAudioPlayable) {
 			this.bufferSource.start(0, _from);
-
-			console.log(`Audio ${this.id} has been indeed played!`);
 
 			// We let the world know that the sound is, indeed, playing
 			this.isPlaying = true;
@@ -132,15 +126,11 @@ class PlayableAudio {
 
 	// Stop the audio 
 	stop() {
-		console.log(`Audio ${this.id} attempted to be stopped!`);
-
 		// We only stop the audio if it is, in fact, playing AND isn't currently in the process of being stopped
 		if(this.isPlayable && this.isPlaying) {
 			this.isPlayable = false; // We mark that the audio is in the process of being stopped, thus can't be stopped nor played now
 
 			this.bufferSource.stop(0);
-
-			console.log(`Audio ${this.id} to be stopped!`);
 		}
 	}
 
