@@ -6,12 +6,6 @@
 #include "utils.hpp"
 #include <stdint.h>
 
-// To communicate between wasm and js we need function names to not be mangled
-// So yeah both import and export essentially does the same thing
-
-#define WASM_EXPORT extern "C"
-#define WASM_IMPORT extern "C"
-
 // As this is a c++ file, and we're not exporting or importing any of these functions to or from js
 // - we can do inlines and define multiple functions with the same name. :D
 
