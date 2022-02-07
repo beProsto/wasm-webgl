@@ -16,10 +16,22 @@ resonanceAudioScene.setRoomProperties({}, {});
 
 // Check if any audio can even be played
 let isAudioPlayable = false;
-window.onkeydown = window.onmousedown = window.ontouchstart = () => {
+
+// Adds a tempporary measure to ensure that any audio can be played
+// it can only be played if the user first had any interaction with the website
+function enableAudio() {
+	console.warn("\n!!! AUDIO HAS ENABLED !!!");
+	
 	audioContext.resume();
 	isAudioPlayable = true;
-};
+
+	window.removeEventListener("keydown", enableAudio);
+	window.removeEventListener("mousedown", enableAudio);
+	window.removeEventListener("touchstart", enableAudio);
+}
+window.addEventListener("keydown", enableAudio);
+window.addEventListener("mousedown", enableAudio);
+window.addEventListener("touchstart", enableAudio);
 
 // Let's keep track of the number of audios in the scene for absolutely no reason other than that we can assign them ID's based on in what place they were created
 let audios = 0;

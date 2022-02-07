@@ -25,6 +25,9 @@
 		}
 	</style>
 
+	<script src="./js/keyboard.js"></script>
+	<script src="./js/mouse.js"></script>
+
 	<script src="https://cdn.jsdelivr.net/npm/resonance-audio/build/resonance-audio.min.js"></script>
 	<script src="./js/audio.js"></script>
 	<script src="./js/wasm_utils.js"></script>
@@ -51,6 +54,7 @@
 		else {
 			console.log("service worker is not supported");
 		}
+
 		const deferredPrompt = null;
 
 		window.addEventListener('beforeinstallprompt', e => {
@@ -61,11 +65,13 @@
 			return false;
 		});
 		// When you want to trigger prompt:
-		deferredPrompt.prompt();
-		deferredPrompt.userChoice.then(choice => {
-			console.log(choice);
-		});
-		deferredPrompt = null;
+		if(deferredPrompt) {
+			deferredPrompt.prompt();
+			deferredPrompt.userChoice.then(choice => {
+				console.log(choice);
+			});
+			deferredPrompt = null;
+		}
 	</script>
 </head>
 <body>
