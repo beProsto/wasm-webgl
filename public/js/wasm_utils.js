@@ -99,6 +99,10 @@ class ModuleUtils {
 					this.moduleref.instance.exports.loading_callback();
 				});
 			},
+			// Keyboard and Mouse bindings
+			is_key_pressed: (_keycode) => {
+				return pressedKeys[_keycode];
+			},
 			// webgl imports
 			// I wonder if there's some way to optimise this.
 			// One way i can imagine would be to create some
