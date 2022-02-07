@@ -11,4 +11,6 @@
 #include "math/math.hpp"
 #include "gldef.hpp"
 #include "fetch.hpp"
+#include "keyboard.hpp"
+#include "mouse.hpp"
 #include "api.hpp"
