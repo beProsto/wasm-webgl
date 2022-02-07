@@ -30,3 +30,8 @@ window.onload = async () => {
 	// start executing the main function
 	module.instance.exports.begin();
 };
+
+function gameLoaded() {
+	const header = document.querySelector("header");
+	header.parentNode.removeChild(header);
+}

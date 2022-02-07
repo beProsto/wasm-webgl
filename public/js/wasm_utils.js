@@ -52,6 +52,9 @@ class ModuleUtils {
 			},
 			// starts a window.requireAnimationFrame loop called on a specific funtion exported by the module
 			__wasm_import_winreqanim_call: () => {
+				// this function will play out once all the assets are loaded
+				gameLoaded();
+				// this function will play out every frame
 				this.animFrame = (time) => {
 
 					music.play();
@@ -61,7 +64,7 @@ class ModuleUtils {
 					this.moduleref.instance.exports.__wasm_export_winreqanim_callback_execute(time);
 
 					this.frameId = window.requestAnimationFrame(this.animFrame);
-				}
+				};
 				this.frameId = window.requestAnimationFrame(this.animFrame);
 			},
 			// evaluates a string as js
