@@ -29,9 +29,9 @@ function enableAudio() {
 		window.removeEventListener("mousedown", enableAudio);
 		window.removeEventListener("touchstart", enableAudio);
 		
-		console.warn("!!! AUDIO CONTEXT RESUMED !!!");
+		console.log("Audio Context has indeed been resumed.");
 	});
-	console.warn("! audio context tried resume !");
+	console.log("Tried to resume Audio Context.");
 }
 window.addEventListener("keydown", enableAudio);
 window.addEventListener("mousedown", enableAudio);
