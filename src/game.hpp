@@ -30,8 +30,9 @@ public:
 
 		u_Offset = glGetUniformLocation(m_Shader.getID(), "u_Offset");
 		u_Size = glGetUniformLocation(m_Shader.getID(), "u_Size");
+		u_Aspect = glGetUniformLocation(m_Shader.getID(), "u_Aspect");
 
-		cout << "Uniforms gotten:\nu_Offset = " << u_Offset << "\nu_Size = " << u_Size << endl; 
+		cout << "Uniforms gotten:\nu_Offset = " << u_Offset << "\nu_Size = " << u_Size << "\nu_Aspect" << u_Aspect << endl; 
 	}
 
 	void update(float time) {
@@ -46,6 +47,7 @@ public:
 
 		glUniform3f(u_Offset, x, y, 0.0f);
 		glUniform3f(u_Size, 0.5f, 0.5f, 0.0f);
+		glUniform1f(u_Aspect, get_width() / get_height());
 
 		glClearColor(sinusoid, sinusoid, sinusoid, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
@@ -56,5 +58,5 @@ public:
 private:
 	Shader m_Shader;
 	VertexBuffer m_VertexBuffer;
-	int u_Offset, u_Size;
+	int u_Offset, u_Size, u_Aspect;
 };

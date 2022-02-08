@@ -9,8 +9,14 @@ out vec4 v_Color;
 
 uniform vec3 u_Offset;
 uniform vec3 u_Size;
+uniform float u_Aspect;
 
 void main() {
-	gl_Position = vec4(a_Position * u_Size + u_Offset, 1.0f);
+	vec3 offset = u_Offset;
+	offset.y = u_Offset.y / u_Aspect;
+
+	gl_Position = vec4(a_Position * u_Size + offset, 1.0f);
+	gl_Position.y = gl_Position.y * u_Aspect;
+	
 	v_Color = vec4(a_TexCoord, 0.5f, 1.0f);
 }
