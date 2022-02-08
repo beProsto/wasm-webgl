@@ -24,6 +24,17 @@ void glValidateProgram(uint32_t id);
 void glUseProgram(uint32_t id);
 void glDeleteProgram(uint32_t id);
 
+int glGetUniformLocation(uint32_t program_id, const char* name);
+
+void glUniform1f(uint32_t loc, float v0);
+void glUniform1i(uint32_t loc, int v0);
+void glUniform2f(uint32_t loc, float v0, float v1);
+void glUniform2i(uint32_t loc, int v0, int v1);
+void glUniform3f(uint32_t loc, float v0, float v1, float v2);
+void glUniform3i(uint32_t loc, int v0, int v1, int v2);
+void glUniform4f(uint32_t loc, float v0, float v1, float v2, float v3);
+void glUniform4i(uint32_t loc, int v0, int v1, int v2, int v3);
+
 uint32_t glCreateVertexArray();
 void glBindVertexArray(uint32_t id);
 void glVertexAttribPointer(uint32_t index, uint32_t size, uint32_t type, bool normalized, uint32_t stride, uint32_t offset);

@@ -1,5 +1,8 @@
 #pragma once
 
+#include <stddef.h>
+#include <stdint.h>
+
 inline size_t strlen_4bytes(const char* _str_start) {
 	const char* str_end = _str_start;
     while(true) {
@@ -23,3 +26,5 @@ inline size_t strlen_1byte(const char* _str_start) {
 inline size_t strlen(const char* _str) {
 	return strlen_4bytes(_str);
 }
+
+extern "C" uint32_t __wasm_export_strlen(const char* _str);

@@ -27,20 +27,27 @@ public:
 	void start() {
 		m_Shader.bind();
 		m_VertexBuffer.bind();
+
+		u_Offset = glGetUniformLocation(m_Shader.getID(), "u_Offset");
+		u_Size = glGetUniformLocation(m_Shader.getID(), "u_Size");
+
+		cout << "Uniforms gotten:\nu_Offset = " << u_Offset << "\nu_Size = " << u_Size << endl; 
 	}
 
 	void update(float time) {
 		float sinusoid = (sin(time / 500.0f) + 1.0) / 2.0;
 
+		glUniform3f(u_Offset, 0.5f, 0.5f, 0.0f);
+		glUniform3f(u_Size, 0.5f, 0.5f, 0.0f);
+
 		glClearColor(sinusoid, sinusoid, sinusoid, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		glDrawArrays(GL_TRIANGLES, 0, 3);
-
-		cout << "The W key is currently " << (is_key_pressed(87) ? "" : "not ") << "pressed!" << endl;
 	}
 
 private:
 	Shader m_Shader;
 	VertexBuffer m_VertexBuffer;
+	int u_Offset, u_Size;
 };

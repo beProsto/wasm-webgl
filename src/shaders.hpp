@@ -40,6 +40,10 @@ public:
 		bind();
 	}
 
+	uint32_t getID() const {
+		return m_ID;
+	}
+
 	void bind() const {
 		if(g_BoundShader != m_ID) {
 			g_BoundShader = m_ID;

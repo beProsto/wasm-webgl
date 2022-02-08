@@ -18,6 +18,8 @@ class ModuleUtils {
 		this.animFrame = () => {};
 		// storage for ever gl object
 		this.glObjects = [];
+
+		this.boundProgram = {};
 	}
 
 	// functions to import to our wasm code
@@ -104,6 +106,7 @@ class ModuleUtils {
 				return pressedKeys[_keycode];
 			},
 			// webgl imports
+			
 			// I wonder if there's some way to optimise this.
 			// One way i can imagine would be to create some
 			// general purpose `genWebglBind` function, that
@@ -114,6 +117,8 @@ class ModuleUtils {
 			// arguments, but a prefix of `this.gl.`.
 			// That's just an idea, but maybeee it could work for
 			// some if not most of these, lol.
+			
+			// Common stuff
 			glClearColor: (r,g,b,a) => {
 				this.gl.clearColor(r,g,b,a);
 			},
@@ -126,6 +131,8 @@ class ModuleUtils {
 			glDrawArrays: (m,f,c) => {
 				this.gl.drawArrays(m,f,c);
 			},
+
+			// Shaders
 			glCreateShader: (k) => {
 				this.glObjects.push(this.gl.createShader(k));
 				return this.glObjects.length-1;
@@ -145,6 +152,8 @@ class ModuleUtils {
 				delete this.glObjects[id];
 				// this.glObjects.splice(id, 1);
 			},
+
+			// Programmes
 			glCreateProgram: () => {
 				this.glObjects.push(this.gl.createProgram());
 				return this.glObjects.length-1;
@@ -161,15 +170,64 @@ class ModuleUtils {
 			},
 			glValidateProgram: (id) => {
 				this.gl.validateProgram(this.glObjects[id]);
+
+				// Upon validation we make up a list of uniform locations (both assigned by Id and Name)
+				const numUniforms = this.gl.getProgramParameter(this.glObjects[id], this.gl.ACTIVE_UNIFORMS);
+				console.log("We got: " + numUniforms + " uniforms!")
+				this.glObjects[id].uniformLocsById = [];
+				this.glObjects[id].uniformIdsByName = {};
+				for(let i = 0; i < numUniforms; ++i) {
+					const info = this.gl.getActiveUniform(this.glObjects[id], i);
+					console.log('name:', info.name, 'type:', info.type, 'size:', info.size);
+					this.glObjects[id].uniformLocsById[i] = this.gl.getUniformLocation(this.glObjects[id], info.name);
+					this.glObjects[id].uniformIdsByName[info.name] = i;
+				}
 			},
 			glUseProgram: (id) => {
 				this.gl.useProgram(this.glObjects[id]);
+				this.boundProgram = this.glObjects[id];
 			},
 			glDeleteProgram: (id) => {
 				this.gl.deleteProgram(this.glObjects[id]);
 				delete this.glObjects[id];
 				// this.glObjects.splice(id, 1);
 			},
+			// Programmes - Uniforms
+			glGetUniformLocation: (program_id, str) => {
+				const name = this.strToTxt(str);
+				if(typeof this.glObjects[program_id].uniformIdsByName[name] !== 'undefined') {
+					return this.glObjects[program_id].uniformIdsByName[name];
+				}
+				else {
+					return -1;
+				}
+			},
+			glUniform1f: (loc, v0) => {
+				this.gl.uniform1f(this.boundProgram.uniformLocsById[loc], v0);
+			},
+			glUniform1i: (loc, v0) => {
+				this.gl.uniform1i(this.boundProgram.uniformLocsById[loc], v0);
+			},
+			glUniform2f: (loc, v0, v1) => {
+				this.gl.uniform2f(this.boundProgram.uniformLocsById[loc], v0, v1);
+			},
+			glUniform2i: (loc, v0, v1) => {
+				this.gl.uniform2i(this.boundProgram.uniformLocsById[loc], v0, v1);
+			},
+			glUniform3f: (loc, v0, v1, v2) => {
+				this.gl.uniform3f(this.boundProgram.uniformLocsById[loc], v0, v1, v2);
+			},
+			glUniform3i: (loc, v0, v1, v2) => {
+				this.gl.uniform3i(this.boundProgram.uniformLocsById[loc], v0, v1, v2);
+			},
+			glUniform4f: (loc, v0, v1, v2, v3) => {
+				this.gl.uniform4f(this.boundProgram.uniformLocsById[loc], v0, v1, v2, v3);
+			},
+			glUniform4i: (loc, v0, v1, v2, v3) => {
+				this.gl.uniform4i(this.boundProgram.uniformLocsById[loc], v0, v1, v2, v3);
+			},
+
+			// Vertex Arrays
 			glCreateVertexArray: () => {
 				this.glObjects.push(this.gl.createVertexArray());
 				return this.glObjects.length-1;
@@ -188,6 +246,8 @@ class ModuleUtils {
 				delete this.glObjects[id];
 				// this.glObjects.splice(id, 1);
 			},
+
+			// Buffers
 			glCreateBuffer: () => {
 				this.glObjects.push(this.gl.createBuffer());
 				return this.glObjects.length-1;
@@ -209,11 +269,8 @@ class ModuleUtils {
 	}
 
 	strToTxt(str) {
-		const memory_buffer = new Uint8Array(this.moduleref.instance.exports.memory.buffer);
-		let text_buffer = "";	
-		for(; memory_buffer[str] != 0; str++) {
-			text_buffer += String.fromCharCode(memory_buffer[str]);
-		}
+		const memory_buffer = new Uint8Array(this.moduleref.instance.exports.memory.buffer, str, this.moduleref.instance.exports.__wasm_export_strlen(str));
+		let text_buffer = new TextDecoder().decode(memory_buffer);
 		return text_buffer;
 	}
 

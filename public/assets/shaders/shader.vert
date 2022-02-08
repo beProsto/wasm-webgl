@@ -7,7 +7,10 @@ layout (location = 2) in vec3 a_Normal;
 
 out vec4 v_Color;
 
+uniform vec3 u_Offset;
+uniform vec3 u_Size;
+
 void main() {
-	gl_Position = vec4(a_Position, 1.0f);
+	gl_Position = vec4(a_Position * u_Size + u_Offset, 1.0f);
 	v_Color = vec4(a_TexCoord, 0.5f, 1.0f);
 }
