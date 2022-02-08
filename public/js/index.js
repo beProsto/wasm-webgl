@@ -15,6 +15,8 @@ window.onload = async () => {
 	};
 	window.onresize();
 
+	console.log("DEVICE PIXEL RATIO: " + window.devicePixelRatio);
+
 	// loading the module
 	const modutils = new ModuleUtils();
 	const module = await WebAssembly.instantiateStreaming(
