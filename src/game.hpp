@@ -42,7 +42,7 @@ public:
 		y = get_mouse_position_y() / get_height() * 2.0f - 1.0f;
 		y = -y; // inverse y
 
-		cout << "x: " << get_mouse_position_x() << " / " << get_width() << "  ||  " << "y: " << get_mouse_position_y() << " / " << get_height() << endl;
+		// cout << "x: " << get_mouse_position_x() << " / " << get_width() << "  ||  " << "y: " << get_mouse_position_y() << " / " << get_height() << endl;
 
 		glUniform3f(u_Offset, x, y, 0.0f);
 		glUniform3f(u_Size, 0.5f, 0.5f, 0.0f);
