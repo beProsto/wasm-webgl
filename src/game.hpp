@@ -37,7 +37,12 @@ public:
 	void update(float time) {
 		float sinusoid = (sin(time / 500.0f) + 1.0) / 2.0;
 
-		glUniform3f(u_Offset, 0.5f, 0.5f, 0.0f);
+		float x, y;
+		x = get_mouse_position_x() / get_width() * 2.0f - 1.0f;
+		y = get_mouse_position_y() / get_height() * 2.0f - 1.0f;
+		y = -y; // inverse y
+
+		glUniform3f(u_Offset, x, y, 0.0f);
 		glUniform3f(u_Size, 0.5f, 0.5f, 0.0f);
 
 		glClearColor(sinusoid, sinusoid, sinusoid, 1.0f);

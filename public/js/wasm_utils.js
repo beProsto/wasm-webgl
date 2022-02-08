@@ -108,6 +108,31 @@ class ModuleUtils {
 			is_key_pressed: (_keycode) => {
 				return pressedKeys[_keycode];
 			},
+			is_mouse_button_pressed: (_button) => {
+				return mouse.pressedButtons[_button];
+			},
+			get_mouse_position_x: () => {
+				return mouse.position[0];
+			},
+			get_mouse_position_y: () => {
+				return mouse.position[1];
+			},
+			get_mouse_velocity_x: () => {
+				return mouse.velocity[0];
+			},
+			get_mouse_velocity_y: () => {
+				return mouse.velocity[1];
+			},
+			get_mouse_wheel: () => {
+				return mouse.wheel;
+			},
+			// Canvas size and stuff
+			get_width: () => {
+				return this.canv.width;
+			},
+			get_height: () => {
+				return this.canv.height;
+			},
 			// webgl imports
 			
 			// I wonder if there's some way to optimise this.

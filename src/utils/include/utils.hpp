@@ -19,4 +19,5 @@
 #include "fetch.hpp"
 #include "keyboard.hpp"
 #include "mouse.hpp"
+#include "canvas.hpp"
 #include "api.hpp"
