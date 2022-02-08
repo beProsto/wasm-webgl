@@ -19,6 +19,9 @@ class ModuleUtils {
 		// storage for ever gl object
 		this.glObjects = [];
 
+		// stores the currently bound WebGLProgram
+		// this *was* supposed to be a temporary measure
+		// it will stay like this
 		this.boundProgram = {};
 	}
 
