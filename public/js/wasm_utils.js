@@ -84,7 +84,7 @@ class ModuleUtils {
 				// fetches the file asynchronously
 				this.fetchText(url).then((str) => {
 					// allocates space for the new string inside the module's memory
-					const ptr = this.moduleref.instance.exports.__wasm_export_malloc(str.length + 1);
+					const ptr = this.moduleref.instance.exports.malloc(str.length + 1);
 					// encodes the string - converts it into a byte array
 					const strBuf = new TextEncoder().encode(str);
 					// places the encoded string in the allocated memory
@@ -104,7 +104,7 @@ class ModuleUtils {
 					if(_ptrToFunc != 0) {
 						this.moduleref.instance.exports.__wasm_export_call(_ptrToFunc);
 					}
-					
+
 					// calls the general file loading callback
 					this.moduleref.instance.exports.loading_callback();
 				});
