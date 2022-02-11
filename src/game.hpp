@@ -32,7 +32,7 @@ public:
 		u_Size = glGetUniformLocation(m_Shader.getID(), "u_Size");
 		u_Aspect = glGetUniformLocation(m_Shader.getID(), "u_Aspect");
 
-		cout << "Uniforms gotten:\nu_Offset = " << u_Offset << "\nu_Size = " << u_Size << "\nu_Aspect" << u_Aspect << endl; 
+		cout << "Uniforms gotten:\nu_Offset = " << u_Offset << "\nu_Size = " << u_Size << "\nu_Aspect = " << u_Aspect << endl; 
 	}
 
 	void update(float time) {

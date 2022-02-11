@@ -78,7 +78,7 @@ class ModuleUtils {
 				eval(text_buffer);
 			},
 			// fetch'es a string asynchronously
-			fetch_string: (_str, _ptrToStrPtr, _ptrToSize) => {
+			fetch_string: (_str, _ptrToStrPtr, _ptrToSize, _ptrToFunc) => {
 				// converts the string of the requested url into js text
 				const url = this.strToTxt(_str);
 				// fetches the file asynchronously
@@ -100,6 +100,11 @@ class ModuleUtils {
 						new Uint32Array(this.moduleref.instance.exports.memory.buffer, _ptrToSize, _ptrToSize+4)[0] = str.length + 1;
 					}
 
+					// calls the specified callback upon loading
+					if(_ptrToFunc != 0) {
+						this.moduleref.instance.exports.__wasm_export_call(_ptrToFunc);
+					}
+					
 					// calls the general file loading callback
 					this.moduleref.instance.exports.loading_callback();
 				});

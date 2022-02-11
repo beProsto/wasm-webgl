@@ -17,7 +17,9 @@ WASM_EXPORT void begin() {
 
 	// load all the needed files as text (strings)
 	fetch_string("./assets/shaders/shader.vert", &g_VertexShaderSource); to_load++;
-	fetch_string("./assets/shaders/shader.frag", &g_FragmentShaderSource); to_load++;
+	fetch_string("./assets/shaders/shader.frag", &g_FragmentShaderSource, nullptr, [](){ 
+			console_log("loaded callback ^~^"); 
+	}); to_load++;
 }
 
 // called every time an asset is loaded
