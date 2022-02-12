@@ -19,18 +19,25 @@ let isAudioPlayable = false;
 
 // Adds a tempporary measure to ensure that any audio can be played
 // it can only be played if the user first had any interaction with the website
+let canv;
 function enableAudio() {
 	// try to resume the audio context
 	audioContext.resume()
 	.then(() => { // when resumed
 		isAudioPlayable = true;
 		
+		console.log("Audio Context has indeed been resumed.");
+	});
+
+	canv.requestFullscreen()
+	.then(() => {
 		window.removeEventListener("keydown", enableAudio);
 		window.removeEventListener("mousedown", enableAudio);
 		window.removeEventListener("touchstart", enableAudio);
 		
-		console.log("Audio Context has indeed been resumed.");
+		screen.orientation.lock("landscape");
 	});
+	
 	console.log("Tried to resume Audio Context.");
 }
 window.addEventListener("keydown", enableAudio);
