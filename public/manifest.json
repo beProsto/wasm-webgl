@@ -21,5 +21,6 @@
 	"start_url": "/wasm-webgl/public/",
 	"background_color": "#2e2e2e",
 	"theme_color": "#ffffff",
-	"display": "fullscreen"
+	"display": "fullscreen",
+	"orientation":  "landscape"
 }
