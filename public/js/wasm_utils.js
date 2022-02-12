@@ -113,23 +113,20 @@ class ModuleUtils {
 			is_key_pressed: (_keycode) => {
 				return pressedKeys[_keycode];
 			},
-			is_mouse_button_pressed: (_button) => {
+			__wasm_import_is_mouse_button_pressed: (_button) => {
 				return mouse.pressedButtons[_button];
 			},
-			get_mouse_position_x: () => {
-				return mouse.position[0];
+			__wasm_import_get_mouse_position: (_i) => {
+				return mouse.position[_i];
 			},
-			get_mouse_position_y: () => {
-				return mouse.position[1];
-			},
-			get_mouse_velocity_x: () => {
-				return mouse.velocity[0];
-			},
-			get_mouse_velocity_y: () => {
-				return mouse.velocity[1];
+			__wasm_import_get_mouse_velocity: (_i) => {
+				return mouse.velocity[_i];
 			},
 			get_mouse_wheel: () => {
 				return mouse.wheel;
+			},
+			get_mouse_ammount: () => {
+				return mouse.ammount;
 			},
 			// Canvas size and stuff
 			get_width: () => {

@@ -4,9 +4,12 @@ let mouse = {
 	velocity: [0.0, 0.0],
 	pressedButtons: [false, false, false, false, false],
 	wheel: 0.0,
+	ammount: 1,
+
 	_touchintlpos: [0.0, 0.0]
 };
 
+// The pc mouse interface is pretty straight forward
 window.onmousemove = (e) => {
 	mouse.position[0] = e.clientX * window.devicePixelRatio; 
 	mouse.position[1] = e.clientY * window.devicePixelRatio; 
@@ -23,33 +26,41 @@ window.onwheel = (e) => {
 	mouse.wheel = e.deltaY;
 };
 
-window.ontouchmove = (e) => {
-	mouse.position[0] = e.touches[0].clientX * window.devicePixelRatio; 
-	mouse.position[1] = e.touches[0].clientY * window.devicePixelRatio; 
-	mouse.velocity[0] = mouse.position[0] - mouse._touchintlpos[0];
-	mouse.velocity[1] = mouse.position[1] - mouse._touchintlpos[1];
-	mouse._touchintlpos[0] = mouse.position[0];
-	mouse._touchintlpos[1] = mouse.position[1];
-};
+// This is where things get retarded
 window.ontouchstart = (e) => {
-	mouse.position[0] = e.touches[0].clientX * window.devicePixelRatio; 
-	mouse.position[1] = e.touches[0].clientY * window.devicePixelRatio; 
-	mouse.velocity[0] = 0.0;
-	mouse.velocity[1] = 0.0;
-	mouse._touchintlpos[0] = mouse.position[0];
-	mouse._touchintlpos[1] = mouse.position[1];
-	
-	mouse.pressedButtons[0] = true; 
+	for(const touch of e.changedTouches) {
+		mouse.position[touch.identifier * 2 + 0] = touch.clientX * window.devicePixelRatio; 
+		mouse.position[touch.identifier * 2 + 1] = touch.clientY * window.devicePixelRatio; 
+		mouse.velocity[touch.identifier * 2 + 0] = 0.0;
+		mouse.velocity[touch.identifier * 2 + 1] = 0.0;
+		mouse._touchintlpos[touch.identifier * 2 + 0] = mouse.position[0];
+		mouse._touchintlpos[touch.identifier * 2 + 1] = mouse.position[1];
+		
+		mouse.pressedButtons[touch.identifier * 5 + 0] = true; 
+	}
+
+	mouse.ammount = e.touches.length;
 };
-window.ontouchend = (e) => {
-	mouse.pressedButtons[0] = false; 
-	mouse.velocity[0] = 0.0;
-	mouse.velocity[1] = 0.0;
+window.ontouchmove = (e) => {
+	for(const touch of e.changedTouches) {
+		mouse.position[touch.identifier * 2 + 0] = touch.clientX * window.devicePixelRatio; 
+		mouse.position[touch.identifier * 2 + 1] = touch.clientY * window.devicePixelRatio; 
+		mouse.velocity[touch.identifier * 2 + 0] = mouse.position[touch.identifier * 2 + 0] - mouse._touchintlpos[touch.identifier * 2 + 0];
+		mouse.velocity[touch.identifier * 2 + 1] = mouse.position[touch.identifier * 2 + 1] - mouse._touchintlpos[touch.identifier * 2 + 1];
+		mouse._touchintlpos[touch.identifier * 2 + 0] = mouse.position[touch.identifier * 2 + 0];
+		mouse._touchintlpos[touch.identifier * 2 + 1] = mouse.position[touch.identifier * 2 + 1];
+	}
 };
-window.ontouchcancel = (e) => {
-	mouse.pressedButtons[0] = false; 
-	mouse.velocity[0] = 0.0;
-	mouse.velocity[1] = 0.0;
+window.ontouchcancel = window.ontouchend = (e) => {
+	for(const touch of e.changedTouches) {
+		mouse.pressedButtons[touch.identifier * 5 + 0] = false; 
+		mouse.velocity[touch.identifier * 2 + 0] = 0.0;
+		mouse.velocity[touch.identifier * 2 + 1] = 0.0;
+	}
+
+	if(e.touches.length == 0) {
+		mouse.ammount = e.touches.length;
+	}
 };
 
 // prevents the context menu from appearing
