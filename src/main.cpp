@@ -42,6 +42,10 @@ void start_app() {
 	// We use the "start" function inside the game object
 	game->start();
 
+	// We don't need the strings we've loaded anymore
+	free(g_VertexShaderSource);
+	free(g_FragmentShaderSource);
+
 	// We make game's update function run every frame
 	window_animation_callback(anim_frame);
 }
