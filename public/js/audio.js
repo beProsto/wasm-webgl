@@ -34,8 +34,8 @@ function enableAudio() {
 		window.removeEventListener("keydown", enableAudio);
 		window.removeEventListener("mousedown", enableAudio);
 		window.removeEventListener("touchstart", enableAudio);
-		
-		screen.orientation.lock("landscape");
+
+		if(screen.orientation.lock) screen.orientation.lock('landscape');
 	});
 	
 	console.log("Tried to resume Audio Context.");
@@ -49,7 +49,7 @@ let audios = 0;
 
 // This class will contain everything we need for 3D Audio
 class PlayableAudio {
-	constructor(_url, _position, _loop = false) {
+	constructor(_url, _position, _loop = false, _onloaded = () => {}) {
 		// We should know which one it is, for debugging purposes
 		this.id = audios;
 		audios++;
@@ -71,7 +71,8 @@ class PlayableAudio {
 		// These are useless callbacks but whatever
 		this.onFinished = () => {};
 		this.onStarted = () => {};
-		
+		this.onLoaded = _onloaded;
+
 		// Create a Resonance source and set its position in space.
 		this.source = resonanceAudioScene.createSource();
 		this.source.setPosition(this.posX, this.posY, this.posZ);
@@ -89,6 +90,7 @@ class PlayableAudio {
 			(decodedBuffer) => {
 				this.buffer = decodedBuffer;
 				this.genBufferSource(); // we create the actual buffer that will be played
+				this.onLoaded();
 			}
 		);
 	}

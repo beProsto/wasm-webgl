@@ -1,5 +1,5 @@
 // Make the audio
-let music = new PlayableAudio("./assets/audio/music.mp3", [0.0, 0.0, 0.0], true);
+// let music = new PlayableAudio("./assets/audio/music.mp3", [0.0, 0.0, 0.0], true);
 
 class ModuleUtils {
 	constructor() {
@@ -23,6 +23,9 @@ class ModuleUtils {
 		// this *was* supposed to be a temporary measure
 		// it will stay like this
 		this.boundProgram = {};
+
+		// stores all the PlayableAudio objects
+		this.audios = [];
 	}
 
 	// functions to import to our wasm code
@@ -62,7 +65,7 @@ class ModuleUtils {
 				// this function will play out every frame
 				this.animFrame = (time) => {
 
-					music.play();
+					// music.play();
 					// this.canv.requestFullscreen();
 					// this.canv.requestPointerLock();
 
@@ -109,6 +112,44 @@ class ModuleUtils {
 					this.moduleref.instance.exports.loading_callback();
 				});
 			},
+			// loads an audio file and returns it's id
+			load_audio: (_str, _loop, _ptrToFunc) => {
+				// converts the string of the requested url into js text
+				const url = this.strToTxt(_str);
+				this.audios.push(new PlayableAudio(url, [0.0,0.0,0.0], _loop, _ptrToFunc ? this.moduleref.instance.exports.__wasm_export_call(_ptrToFunc) : ()=>{}));
+				return this.audios.length - 1;
+			},
+			play_audio: (_id, _from) => {
+				this.audios[_id].play(_from);
+			},
+			stop_audio: (_id) => {
+				this.audios[_id].stop();
+			},
+			loop_audio: (_id, _loop) => {
+				this.audios[_id].loop = _loop;
+			},
+			is_audio_looped: (_id) => {
+				return this.audios[_id].loop;
+			},
+			is_audio_playing: (_id) => {
+				return this.audios[_id].playing;
+			},
+			get_audio_duration: (_id) => {
+				return this.audios[_id].duration;
+			},
+			set_audio_position: (_id, x, y, z) => {
+				this.audios[_id].position = [x, y, z];
+			},
+			get_audio_position_x: (_id) => {
+				return this.audios[_id].position[0];
+			},
+			get_audio_position_y: (_id) => {
+				return this.audios[_id].position[1];
+			},
+			get_audio_position_z: (_id) => {
+				return this.audios[_id].position[2];
+			},
+
 			// Keyboard and Mouse bindings
 			is_key_pressed: (_keycode) => {
 				return pressedKeys[_keycode];

@@ -25,8 +25,18 @@ inline float get_mouse_velocity_y(uint32_t mouse_id = 0) {
 	return __wasm_import_get_mouse_velocity(mouse_id * 2 + 1);
 };
 
-struct AABB {float x; float y; float w; float h;};
-inline bool get_mouse_id_in_area(uint32_t& mouse_id_ref, AABB aabb) {
+struct Mouse {
+	uint32_t id;
+	float x;
+	float y;
+	float xVel;
+	float yVel;
+	float xRel;
+	float yRel;
+};
+
+struct Rect {float x; float y; float w; float h;};
+inline bool get_mouse_in_area(Mouse& mouse_ref, Rect aabb) {
 	uint32_t mice = get_mouse_ammount();
 	for(uint32_t mid = 0; mid < mice; mid++) {
 		float x = get_mouse_position_x(mid);
@@ -37,7 +47,15 @@ inline bool get_mouse_id_in_area(uint32_t& mouse_id_ref, AABB aabb) {
 		}
 
 		// touch inside the boundaries was found
-		mouse_id_ref = mid;
+		mouse_ref = Mouse{
+			mid,
+			x,
+			y,
+			get_mouse_velocity_x(mid),
+			get_mouse_velocity_y(mid),
+			x - aabb.x,
+			y - aabb.y
+		};
 		return true;
 	}
 	// touch inside the boundaries was not found
@@ -45,7 +63,7 @@ inline bool get_mouse_id_in_area(uint32_t& mouse_id_ref, AABB aabb) {
 }
 
 struct Circle {float x; float y; float r;};
-inline bool get_mouse_id_in_area(uint32_t& mouse_id_ref, Circle circle) {
+inline bool get_mouse_in_area(Mouse& mouse_ref, Circle circle) {
 	uint32_t mice = get_mouse_ammount();
 	for(uint32_t mid = 0; mid < mice; mid++) {
 		float x = get_mouse_position_x(mid);
@@ -59,7 +77,15 @@ inline bool get_mouse_id_in_area(uint32_t& mouse_id_ref, Circle circle) {
 		}
 
 		// touch inside the boundaries was found
-		mouse_id_ref = mid;
+		mouse_ref = Mouse{
+			mid,
+			x,
+			y,
+			get_mouse_velocity_x(mid),
+			get_mouse_velocity_y(mid),
+			outx,
+			outy
+		};
 		return true;
 	}
 	return false;

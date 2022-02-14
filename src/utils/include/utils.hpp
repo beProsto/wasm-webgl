@@ -20,4 +20,5 @@
 #include "keyboard.hpp"
 #include "mouse.hpp"
 #include "canvas.hpp"
+#include "audio.hpp"
 #include "api.hpp"

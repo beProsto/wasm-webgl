@@ -41,26 +41,29 @@ public:
 		glClearColor(sinusoid, sinusoid, sinusoid, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		glUniform1f(u_Aspect, get_width() / get_height());
+		const float width = get_width();
+		const float height = get_height();
 
-		// cout << "x: " << get_mouse_position_x() << " / " << get_width() << "  ||  " << "y: " << get_mouse_position_y() << " / " << get_height() << endl;
+		glUniform1f(u_Aspect, width / height);
+
+		// cout << "x: " << get_mouse_position_x() << " / " << width << "  ||  " << "y: " << get_mouse_position_y() << " / " << height << endl;
 		// for(uint32_t mouseId = 0; mouseId < get_mouse_ammount(); mouseId++) {
 		// 	float x, y;
 			
-		// 	x = get_mouse_position_x(mouseId) / get_width() * 2.0f - 1.0f;
-		// 	y = get_mouse_position_y(mouseId) / get_height() * 2.0f - 1.0f;
+		// 	x = get_mouse_position_x(mouseId) / width * 2.0f - 1.0f;
+		// 	y = get_mouse_position_y(mouseId) / height * 2.0f - 1.0f;
 		// 	y = -y; // inverse y
 
 		// 	glUniform3f(u_Offset, x, y, 0.0f);
 		// 	glDrawArrays(GL_TRIANGLES, 0, 3);
 		// }
-		uint32_t mouseId;
+		Mouse mouse;
 		// left side of the screen - a circle
-		if(get_mouse_id_in_area(mouseId, Circle{get_width() / 6.0f, get_height() / 2.0f, get_height()/4.0f})) {
+		if(get_mouse_in_area(mouse, Circle{width / 6.0f, height / 2.0f, height/4.0f})) {
 			float x, y;
 			
-			x = get_mouse_position_x(mouseId) / get_width() * 2.0f - 1.0f;
-			y = get_mouse_position_y(mouseId) / get_height() * 2.0f - 1.0f;
+			x = mouse.x / width * 2.0f - 1.0f;
+			y = mouse.y / height * 2.0f - 1.0f;
 			y = -y; // inverse y
 
 			glUniform3f(u_Size, 0.2f, 0.2f, 0.0f);
@@ -68,11 +71,11 @@ public:
 			glDrawArrays(GL_TRIANGLES, 0, 3);
 		}
 		// right side of the screen - an Axis Aligned Bounding Box
-		if(get_mouse_id_in_area(mouseId, AABB{get_width() / 2.0f, 0.0f, get_width() / 2.0f, get_height()})) {
+		if(get_mouse_in_area(mouse, Rect{width / 2.0f, 0.0f, width / 2.0f, height})) {
 			float x, y;
 			
-			x = get_mouse_position_x(mouseId) / get_width() * 2.0f - 1.0f;
-			y = get_mouse_position_y(mouseId) / get_height() * 2.0f - 1.0f;
+			x = mouse.x / width * 2.0f - 1.0f;
+			y = mouse.y / height * 2.0f - 1.0f;
 			y = -y; // inverse y
 
 			glUniform3f(u_Size, 0.5f, 0.5f, 0.0f);
