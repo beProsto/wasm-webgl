@@ -14,17 +14,14 @@ const Vertex vertices[] = {
 
 char* g_VertexShaderSource;
 char* g_FragmentShaderSource;
-unsigned char* g_TextureImageData;
+uint32_t g_Music;
 
 class Game {
 public:
 	Game():
 	m_Shader(g_VertexShaderSource, g_FragmentShaderSource),
 	m_VertexBuffer(vertices, sizeof(vertices))
-	{}
-	~Game() {}
-
-	void start() {
+	{
 		m_Shader.bind();
 		m_VertexBuffer.bind();
 
@@ -33,7 +30,11 @@ public:
 		u_Aspect = glGetUniformLocation(m_Shader.getID(), "u_Aspect");
 
 		cout << "Uniforms gotten:\nu_Offset = " << u_Offset << "\nu_Size = " << u_Size << "\nu_Aspect = " << u_Aspect << endl;
+	}
+	~Game() {}
 
+	void start() {
+		play_audio(g_Music);
 	}
 
 	void update(float time) {
@@ -61,6 +62,10 @@ public:
 		// left side of the screen - a circle
 		if(get_mouse_in_area(mouse, Circle{width / 6.0f, height / 2.0f, height/4.0f})) {
 			float x, y;
+
+			if(is_mouse_button_pressed(0, mouse.id)) {
+				play_audio(g_Music);
+			}
 			
 			x = mouse.x / width * 2.0f - 1.0f;
 			y = mouse.y / height * 2.0f - 1.0f;
@@ -73,6 +78,10 @@ public:
 		// right side of the screen - an Axis Aligned Bounding Box
 		if(get_mouse_in_area(mouse, Rect{width / 2.0f, 0.0f, width / 2.0f, height})) {
 			float x, y;
+
+			if(is_mouse_button_pressed(0, mouse.id)) {
+				stop_audio(g_Music);
+			}
 			
 			x = mouse.x / width * 2.0f - 1.0f;
 			y = mouse.y / height * 2.0f - 1.0f;
