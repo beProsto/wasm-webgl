@@ -62,8 +62,8 @@
 
 		const deferredPrompt = null;
 
-		window.addEventListener('beforeinstallprompt', e => {
-			console.log('beforeinstallprompt Event fired');
+		window.addEventListener("beforeinstallprompt", e => {
+			console.log("beforeinstallprompt Event fired");
 			e.preventDefault();
 			// Stash the event so it can be triggered later.
 			deferredPrompt = e;
