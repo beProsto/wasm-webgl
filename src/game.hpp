@@ -36,6 +36,10 @@ public:
 		ControllerType controllerType = ControllerType::PC; 
 		if(is_mobile()) {
 			controllerType = ControllerType::Mobile;
+			console_log("MOBILE CONTROLLER DETECTED!");
+		}
+		else {
+			console_log("PC CONTROLLER DETECTED!");
 		}
 		m_Controller.create(controllerType);
 	}

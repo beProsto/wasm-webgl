@@ -45,7 +45,7 @@ function gameLoaded() {
 	
 	// Adds a tempporary measure to ensure that any audio can be played
 	// it can only be played if the user first had any interaction with the website
-	function enableAudio() {
+	async function enableAudio() {
 		// try to resume the audio context
 		audioContext.resume()
 		.then(() => { // when resumed
@@ -54,18 +54,17 @@ function gameLoaded() {
 			console.log("Audio Context has indeed been resumed.");
 		});
 
-		canv.requestFullscreen()
+		await canv.requestFullscreen()
 		.then(() => {
 			window.removeEventListener("keydown", enableAudio);
 			window.removeEventListener("mousedown", enableAudio);
 			window.removeEventListener("touchstart", enableAudio);
 
-			if(screen.orientation.lock) screen.orientation.lock('landscape');
-
 			header.parentNode.removeChild(header);
 
 			module.instance.exports.begin_game();
 		});
+		if(screen.orientation.lock) screen.orientation.lock('landscape');
 		
 		console.log("Tried to resume Audio Context.");
 	}
