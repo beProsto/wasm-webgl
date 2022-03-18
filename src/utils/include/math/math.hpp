@@ -5,3 +5,4 @@
 #include <float.h>
 
 #include "minmax.hpp"
+#include "vec.hpp"

@@ -10,4 +10,6 @@ extern "C" {
 	void __wasm_import_winreqanim_call();
 	// calls eval to evaluate js code represented as a string
 	void __wasm_import_eval(const char*);
+	// tells us wether or not we're running mobile
+	bool is_mobile();
 }

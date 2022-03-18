@@ -63,15 +63,6 @@ private:
 	uint32_t m_VBID, m_VAID;
 };
 
-
-struct Vec2 {
-	float x, y;
-};
-
-struct Vec3 {
-	float x, y, z;
-};
-
 struct Vertex {
 	Vec3 pos;
 	Vec2 tex;

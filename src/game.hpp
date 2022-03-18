@@ -4,6 +4,7 @@
 
 #include "shaders.hpp"
 #include "vertexbuffers.hpp"
+#include "controller/controller.hpp"
 
 const Vertex vertices[] = {
 	// Position                 // Tex Coords     // Normals
@@ -20,7 +21,8 @@ class Game {
 public:
 	Game():
 	m_Shader(g_VertexShaderSource, g_FragmentShaderSource),
-	m_VertexBuffer(vertices, sizeof(vertices))
+	m_VertexBuffer(vertices, sizeof(vertices)),
+	m_Controller()
 	{
 		m_Shader.bind();
 		m_VertexBuffer.bind();
@@ -30,6 +32,12 @@ public:
 		u_Aspect = glGetUniformLocation(m_Shader.getID(), "u_Aspect");
 
 		cout << "Uniforms gotten:\nu_Offset = " << u_Offset << "\nu_Size = " << u_Size << "\nu_Aspect = " << u_Aspect << endl;
+
+		ControllerType controllerType = ControllerType::PC; 
+		if(is_mobile()) {
+			controllerType = ControllerType::Mobile;
+		}
+		m_Controller.create(controllerType);
 	}
 	~Game() {}
 
@@ -94,7 +102,9 @@ public:
 	}
 
 private:
+	Controller m_Controller;
 	Shader m_Shader;
 	VertexBuffer m_VertexBuffer;
 	int u_Offset, u_Size, u_Aspect;
+	
 };

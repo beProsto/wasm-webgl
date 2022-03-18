@@ -110,6 +110,10 @@ class ModuleUtils {
 					this.moduleref.instance.exports.loading_callback();
 				});
 			},
+			// tells us if we're running on a mobile device
+			is_mobile: () => {
+				return isMobile;
+			},
 			// loads an audio file and returns it's id
 			load_audio: (_str, _loop, _ptrToFunc) => {
 				// converts the string of the requested url into js text
