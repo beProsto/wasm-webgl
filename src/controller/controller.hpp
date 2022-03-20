@@ -19,6 +19,8 @@ public:
 		return ControllerType::Invalid;
 	}
 
+	virtual void update() { }
+
 public:
 	Vec2 movement;
 	Vec2 look;
@@ -63,6 +65,10 @@ public:
 	ControllerType getControllerType() const {
 		if(m_Controller == nullptr) return ControllerType::Invalid;
 		return m_Controller->getControllerType();
+	}
+
+	void update() {
+		m_Controller->update();
 	}
 
 protected:

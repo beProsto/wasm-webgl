@@ -60,5 +60,5 @@ WASM_EXPORT void begin_game() {
 
 // Needed for the programme to work
 WASM_EXPORT void __cxa_atexit() {}
-WASM_EXPORT void _Znwm() {}
-WASM_EXPORT void _ZdlPv() {}
+WASM_EXPORT void* _Znwm(size_t _s) { return malloc(_s); }
+WASM_EXPORT void _ZdlPv(void* _p) { free(_p); }

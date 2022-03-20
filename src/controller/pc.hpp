@@ -1,6 +1,5 @@
 #pragma once
 
-
 class PCController: public ControllerBase {
 public:
 	PCController() {
@@ -12,6 +11,11 @@ public:
 
 	virtual ControllerType getControllerType() const {
 		return ControllerType::PC;
+	}
+	
+	virtual void update() {
+		console_log("PC Controller Update");
+
 	}
 
 };

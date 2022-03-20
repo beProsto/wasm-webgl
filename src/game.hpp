@@ -50,6 +50,7 @@ public:
 	}
 
 	void update(float time) {
+		m_Controller.update();
 		float sinusoid = (sin(time / 500.0f) + 1.0) / 2.0;
 		glClearColor(sinusoid, sinusoid, sinusoid, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);

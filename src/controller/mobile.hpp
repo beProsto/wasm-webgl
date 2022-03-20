@@ -13,4 +13,8 @@ public:
 		return ControllerType::Mobile;
 	}
 
+	virtual void update() {
+		console_log("Mobile Controller Update");
+		
+	}
 };

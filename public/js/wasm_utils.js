@@ -30,7 +30,7 @@ class ModuleUtils {
 
 	// functions to import to our wasm code
 	getImports() {
-		let imports = { env: {
+		let imports = { env: {  
 			// logs a string
 			__wasm_import_console_log_str: (_ptr) => {
 				const text_buffer = this.strToTxt(_ptr);
